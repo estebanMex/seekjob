@@ -18,16 +18,6 @@ return array(
 					),
 				),
 			),
-			'offres_inscription' => array(
-				'type' => 'Zend\Mvc\Router\Http\Literal',
-				'options' => array(
-					'route' => '/offres/inscription',
-					'defaults' => array(
-						'controller' => 'Offres\Controller\Offres',
-						'action' => 'inscription',
-					),
-				),
-			),
 			'offres_ajouter' => array(
 				'type' => 'Zend\Mvc\Router\Http\Literal',
 				'options' => array(
@@ -61,6 +51,17 @@ return array(
 					),
 					'constraints' => array(
 						'id' => '[1-9][0-9]*',
+					),
+				),
+			),
+			//USER ROUTES
+			'offres_inscription' => array(
+				'type' => 'Zend\Mvc\Router\Http\Literal',
+				'options' => array(
+					'route' => '/offres/inscription',
+					'defaults' => array(
+						'controller' => 'Offres\Controller\Offres',
+						'action' => 'inscription',
 					),
 				),
 			),

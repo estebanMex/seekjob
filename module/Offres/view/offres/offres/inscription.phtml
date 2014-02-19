@@ -13,12 +13,11 @@
  * 
  */
 ?>
-<?php // var_dump($_POST); ?>
 <div class="panel panel-default">
 	<div class="panel-heading clearfix"><h4>Créer mon compte</h4></div>
 	<?php
-	//@TODO PENSER A PRE REMPLIR LES CHAMPS SI CONNECTe 
-	//@TODO OPTION Validation de formulaire (champs prenom, nom, email, cv obligatoires, CV de type PDF, Word ou ODT et ne dépassant pas 1Mo, email au format valide) 
+	//@TODO THINK OF PRE(MEADOW) FILL(PERFORM) FIELDS SO CONNECTED
+	//@TODO OPTION Validation of form (fields first name, name, email, cv compulsory, type(chap) PDF's CV, Word or ODT and not exceeding(overtaking) 1Mo, email in the valid size(format)) 
 	?>
 	<div class="panel-body">
 		<div class="alert alert-success alert-dismissable">
@@ -78,12 +77,12 @@
 						<div class="row">
 							<div class=" col-lg-6">
 								<label for="cp">Code postale</label>
-								<input type="text" class="form-control" id="cp" placeholder="Code postale">
+								<input type="text" class="form-control" id="cp" placeholder="Code postale" name="cp">
 							</div>
 
 							<div class=" col-lg-6">
 								<label for="ville">Ville</label>
-								<input type="text" class="form-control" id="ville" placeholder="Ville">
+								<input type="text" class="form-control" id="ville" placeholder="Ville" name="ville">
 							</div>
 						</div>
 						&nbsp;
@@ -96,7 +95,7 @@
 							</div>
 							<div class=" col-lg-6">
 								<div class="form-group">
-									<select class="form-control">
+									<select class="form-control" name="type">
 										<option> choisir un type</option>
 										<option>Candidat</option>
 										<option>Entreprise</option>
