@@ -3,7 +3,9 @@
 namespace Offres\Controller;
 
 use Offres\Model\Entity\Candidat;
+use Offres\Model\Entity\Offre;
 use Offres\Model\Entity\Societe;
+use Offres\Model\OffreGateway;
 use Offres\Model\UserAccountGateway;
 use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -51,7 +53,6 @@ class OffresController extends AbstractActionController {
 	 */
 	public function inscriptionAction() {
 		$erreurs = array();
-
 
 		if ($this->request->isPost()) {
 			$data = $this->request->getPost();
@@ -107,6 +108,20 @@ class OffresController extends AbstractActionController {
 	 * @return ViewModel
 	 */
 	public function ajouterAction() {
+		$erreurs = array();
+		$offreGateway = new OffreGateway();
+
+		if ($this->request->isPost()) {
+			$data = $this->request->getPost();
+			//@TODO It is necessary to find the value from user Account in Session 
+			$data['societe_conection_id'] = 98;
+			$toCreateOffre = new Offre($data['cp'], $data['date_creation'], $data['description'], $data['id'], $data['societe_conection_id'], $data['denomination'], $data['titre'], $data['type'], $data['ville']);
+
+			$offreGateway->createOffre($toCreateOffre);
+
+			return new ViewModel(array('data' => $data));
+		}
+
 		return new ViewModel();
 	}
 

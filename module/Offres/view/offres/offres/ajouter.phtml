@@ -1,3 +1,105 @@
-Module: Offres
-Controller: Offres
-Action: ajouter
+<?php
+if (isset($data)) {
+	//var_dump($data);
+}
+
+$idAle = rand(75000, 99000);
+?>
+<div class="panel panel-default">
+	<div class="panel-heading clearfix"><h4>Ajouter un nouvelle offre :</h4></div>
+	<div class="panel-body">
+
+		<div class="alert alert-success alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<strong>Super !</strong> Votre candidature à été soumis correctement
+		</div>
+
+		<div class="alert alert-danger alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<strong>Oups !</strong> Votre Un erreur est survenu merci de soumettre à nouveau votre candidature
+		</div>
+
+		<div class="row show-grid">
+			<div class="col-md-8">
+				<div class="panel-body">
+					<form role="form"  method="post" action="">
+						<input type="hidden" name="societe_id" value="95" > 
+						<div class="row">
+							<div class="col-lg-12">
+								<label for="titre">Titre</label>
+								<input type="text" class="form-control" id="nom" placeholder="Titre de votre offre" name="titre" value="titre_<?php echo $idAle; ?>">
+							</div>
+						</div>
+						&nbsp;
+						<div class="row">
+							<div class="col-lg-12"> 
+								<div class=" col-lg-6">
+									<label for="type">Type de l'offre</label><br />
+									<select class="form-control" name="type" name="typeOffre">
+										<option>choisir un type</option>
+										<option>Stage</option>
+										<option>Alternance</option>
+										<option>CDD</option>
+										<option selected="selected">CDI</option>
+									</select>		
+								</div>
+
+							</div>
+						</div>
+						&nbsp;
+						<div class="row">
+							<div class=" col-lg-6">
+								<label for="cp">Code postale</label>
+								<input type="text" class="form-control" id="cp" placeholder="Code postale" name="cp" value="<?php echo $idAle; ?>">
+							</div>
+
+							<div class=" col-lg-6">
+								<label for="ville">Ville</label>
+								<input type="text" class="form-control" id="ville" placeholder="Ville" name="ville" value="bidonVille_<?php echo $idAle; ?>">
+							</div>
+						</div>
+						&nbsp;
+						<div class="row">
+							<div class="form-group col-lg-12">
+								<label for="description">Description de votre offre :</label>
+								<textarea class="form-control" rows="3" id="description" placeholder="Description de l'offre" name="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec lobortis elit. Mauris non odio arcu. Praesent pulvinar sem posuere bibendum congue. Morbi facilisis, turpis id tincidunt sodales, tortor tellus pretium diam, consequat accumsan orci massa sed libero. Duis consequat ligula sit amet sollicitudin consectetur. In hac habitasse platea dictumst. Etiam auctor nibh non auctor iaculis. Vivamus fringilla facilisis lobortis.</textarea>
+								<p class="help-block text-center"><span>Maximun 1000 caracteres</span> -- <strong><span class="text-danger">50</span>/1000</strong></p>
+							</div>
+						</div>
+						&nbsp;
+						<div class="row">
+							<div class="row">
+								<div class="panel-body">
+									<input type="submit" class="btn btn-success btn-lg btn-block" value="ENREGISTRER">
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div id="competences">
+				<div class="col-md-4" id="inputAddComptence">
+					<form class="navbar-form" role="form">
+						<div class="form-group">
+							<input type="tag"  placeholder="exemple PHP" class="form-control">
+						</div>
+						<button type="submit" class="btn btn-success">Ajouter</button>
+					</form>
+				</div>
+				<div>
+					<span class="badge pad"><a href="#">PHP <span class="glyphicon glyphicon-remove"></span></a></span>
+					<span class="badge pad"><a href="#">java <span class="glyphicon glyphicon-remove"></span></a></span>
+					<span class="badge pad"><a href="#">css <span class="glyphicon glyphicon-remove"></span></a></span>
+					<span class="badge pad"><a href="#">html <span class="glyphicon glyphicon-remove"></span></a></span>
+					<span class="badge pad"><a href="#">Java <span class="glyphicon glyphicon-remove"></span> </a></span>	
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+<div>
+	<ul class="pager">
+		<li class="previous disabled"><a href="#">&larr; Retourner à la liste d'offres</a></li>
+		<li class="next"><a href="#">Voir l'offre suivante &rarr;</a></li>
+	</ul>
+</div>
