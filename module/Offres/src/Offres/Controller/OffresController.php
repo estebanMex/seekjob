@@ -2,9 +2,10 @@
 
 namespace Offres\Controller;
 
-use Zend\Http\Request;
 use Offres\Model\Entity\Candidat;
-use Offres\Model\UserGateway;
+use Offres\Model\Entity\Societe;
+use Offres\Model\UserAccountGateway;
+use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -49,40 +50,55 @@ class OffresController extends AbstractActionController {
 	 * @return ViewModel
 	 */
 	public function inscriptionAction() {
-//		object(Zend\Stdlib\Parameters)[101]
-//		public 'nom' => string 'zdgvqsd' (length = 7)
-//		public 'prenom' => string 'qsdfqsfdv' (length = 9)
-//		public 'email' => string 'mail@mail.fr' (length = 12)
-//		public 'tel' => string '000000000' (length = 9)
-//		public 'password' => string 'tototo' (length = 6)
-//		public 'type' => string 'Candidat' (length = 8)
-//		public 'cv' => string 'ServiceLargeURL11[1].png' (length = 24)
-//		public 'denomination' => string 'socoetete' (length = 9)
-//				
+		$erreurs = array();
+
 
 		if ($this->request->isPost()) {
 			$data = $this->request->getPost();
-			$userGateway = new UserGateway();
+			$userGateway = new UserAccountGateway();
 
-			if ($data->type === 'Candidat') {
-				var_dump($data);
-				/**
-				 * @var \Candidat $candidatToCreate;
-				 */
-				$candidatToCreate = new Candidat($data['nom'], $data['prenom'], $data['tel'], $data['cp'], $data['ville']);
-				var_dump($candidatToCreate);
+			$mailIsFree = $userGateway->mailIsFree($data['email']);
 
-				//$userGateway->createCandidat($pCandidat);
-			} else if ($data->type === 'societe') {
-				//$userGateway->createSociete($pSociete);
+			if ($mailIsFree > 0) {
+				//@TODO  return Flash message  'ce mail est dejà pris'
+				$erreurs[] = 'ce mail est dejà pris';
+				return new ViewModel(array('data' => $data, 'erreurs' => $erreurs));
 			}
 
-//			if ($form->isValid()) {
-//				//TODO inseerer dans la base de données
-//				return $this->redirect()->toRoute("home");
-//			}
+			if ($mailIsFree === 0) {
+				//@TODO trouver pour quoi on recupere par le lastID
+				$lastIdInsert = $userGateway->createUserCredentials($data['email'], $data['password']);
+			}
+
+			if ($data->type === 'Candidat') {
+				$candidatToCreate = new Candidat($data['nom'], $data['prenom'], $data['tel'], $data['cp'], $data['ville']);
+				$candidatToCreate->setCv($this->request->getFiles()->cv['name'])
+						->setLettre_motivation($this->request->getFiles()->cv['name'])
+						->setConection_id($lastIdInsert);
+				$userGateway->createCandidat($candidatToCreate);
+				//@TODO if all is ok redirect + FLASH MSG
+				//				return $this->redirect()->toRoute("home");
+			}
+
+			if ($data->type === 'Entreprise') {
+				$societeToCreate = new Societe($data['nom'], $data['prenom'], $data['tel'], $data['cp'], $data['ville']);
+
+				$societeToCreate->setDenomination($data['denomination'])->setLogo($this->request->getFiles()->logo['name'])
+						->setConection_id($lastIdInsert);
+				$userGateway->createSociete($societeToCreate);
+				//@TODO if all is ok redirect + FLASH MSG
+				//				return $this->redirect()->toRoute("home");
+			}
+
+			if (sizeof($erreurs) > 0) {
+				return new ViewModel(array('data' => $data, 'erreurs' => $erreurs));
+			} else {
+				//@TODO all fields is ok we nedd make redirection
+				//return new ViewModel(array('data' => $data, 'erreurs' => $erreurs));
+				return $this->redirect()->toRoute("home");
+			}
 		}
-		return new ViewModel(array('data' => $data));
+		return new ViewModel();
 	}
 
 	//TODO afficher le formulaire d'ajout d'une offre

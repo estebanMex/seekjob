@@ -13,6 +13,9 @@
  * 
  */
 ?>
+<?php
+$idAle = '_' . rand(1, 1000);
+?>
 <div class="panel panel-default">
 	<div class="panel-heading clearfix"><h4>Créer mon compte</h4></div>
 	<?php
@@ -20,33 +23,42 @@
 	//@TODO OPTION Validation of form (fields first name, name, email, cv compulsory, type(chap) PDF's CV, Word or ODT and not exceeding(overtaking) 1Mo, email in the valid size(format)) 
 	?>
 	<div class="panel-body">
-		<div class="alert alert-success alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<strong>Super !</strong> Votre compte a été crée !
-		</div>
 
-		<div class="alert alert-danger alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<strong>Oups !</strong>Un erreur est survenu merci votre comprehension
-		</div>
+		<!--		<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>Super !</strong> Votre compte a été crée !
+				</div>-->
+
+		<?php if (isset($erreurs)): ?>
+			<?php $flag = 'oui';  ?>
+		
+			<?php foreach ($erreurs as $erreur): ?>
+				<div class="alert alert-danger alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>Oups ! </strong><?php echo ' ' . $erreur; ?>
+				</div>
+			<?php endforeach; ?>
+		<?php endif; ?>
+
+
 
 		<!--FORM-->
 		<div class="row show-grid">
 			<div class="col-md-8">
 				<div class="panel-body">
-					<form role="form" action="" method="post">
+					<form role="form" action="" method="post" enctype="multipart/form-data">
 						<!--BEGIN USER -->
 						<div class="row">
 							<div class=" col-lg-6">
 								<div class="form-group">
 									<label for="nom">Nom</label>
-									<input type="text" class="form-control" id="nom" placeholder="Votre nom" name="nom">
+									<input type="text" class="form-control" id="nom" placeholder="Votre nom" name="nom" value="nom<?php echo $idAle; ?>">
 								</div>
 							</div>
 							<div class=" col-lg-6">
 								<div class="form-group">
 									<label for="prenom">Prénom</label>
-									<input type="text" class="form-control" id="prenom" placeholder="Votre Prénom" name="prenom">
+									<input type="text" class="form-control" id="prenom" placeholder="Votre Prénom" name="prenom" value="prenom<?php echo $idAle; ?>">
 								</div>
 							</div>
 						</div>
@@ -55,14 +67,14 @@
 							<div class=" col-lg-6">
 								<div class="form-group">
 									<label for="email">Email</label>
-									<input type="email" class="form-control" id="email" placeholder="Votre email" name="email">
+									<input type="email" class="form-control" id="email" placeholder="Votre email" name="email" value="mail<?php echo $idAle; ?>@bidon.fr">
 								</div>
 							</div>
 
 							<div class=" col-lg-6">
 								<div class="form-group">
 									<label for="tel">Telephone</label>
-									<input type="tel" class="form-control" id="tel" placeholder="00-00-00-00-00-00" name="tel">
+									<input type="tel" class="form-control" id="tel" placeholder="00-00-00-00-00-00" name="tel" value="0102030405">
 								</div>
 							</div>
 						</div>
@@ -70,19 +82,19 @@
 							<div class=" col-lg-6">
 								<div class="form-group">
 									<label for="password">Mot de passe </label>
-									<input type="password" class="form-control" id="password" placeholder="" name="password">
+									<input type="password" class="form-control" id="password" placeholder="" name="password" value="toto">
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class=" col-lg-6">
 								<label for="cp">Code postale</label>
-								<input type="text" class="form-control" id="cp" placeholder="Code postale" name="cp">
+								<input type="text" class="form-control" id="cp" placeholder="Code postale" name="cp" value="<?php echo rand(75000, 75021); ?>">
 							</div>
 
 							<div class=" col-lg-6">
 								<label for="ville">Ville</label>
-								<input type="text" class="form-control" id="ville" placeholder="Ville" name="ville">
+								<input type="text" class="form-control" id="ville" placeholder="Ville" name="ville" value="paris">
 							</div>
 						</div>
 						&nbsp;
@@ -121,6 +133,21 @@
 								</div>
 							</div>
 						</div>
+						<div class="row">
+
+							<div class=" col-lg-6">
+								<div class="form-group">
+									<label for="lettre_motivation">Envoyer votre lettre de motivation</label>
+									<p class="help-block">Formats .pdf, .odt, .doc, poids max 10M</p>
+
+								</div>
+							</div>
+							<div class=" col-lg-6">
+								<div class="form-group">
+									<input type="file" id="lettre_motivation" name="lettre_motivation">
+								</div>
+							</div>
+						</div>
 						<!-- END CANDIDAT-->
 
 						<!--BEGIN ENTREPRISE -->
@@ -130,7 +157,22 @@
 							<div class="col-lg-12">
 								<div class="form-group">
 									<label for="denomination">Nom de votre société</label>
-									<input type="text" class="form-control" id="denomination" placeholder="Nom de votre societé" name="denomination">
+									<input type="text" class="form-control" id="denomination" placeholder="Nom de votre societé" name="denomination" value="societe_<?php echo $idAle; ?>">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+
+							<div class=" col-lg-6">
+								<div class="form-group">
+									<label for="logo">Envoyer votre logo</label>
+									<p class="help-block">Format .jpg </p>
+
+								</div>
+							</div>
+							<div class=" col-lg-6">
+								<div class="form-group">
+									<input type="file" id="lettre_motivation" name="logo">
 								</div>
 							</div>
 						</div>
