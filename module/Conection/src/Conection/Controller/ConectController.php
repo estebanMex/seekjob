@@ -25,13 +25,12 @@ class ConectController extends AbstractActionController {
     protected $request;
     
     public function indexAction() {
-        $login = new \Conection\Mapper\ConectMapper();
+        $Connect = new \Conection\Mapper\ConectMapper();
         
-        $toto = 'toto@toto.com';
+        $mail= 'toto@toto.com';
         $password = 'toto';
-        $login->conect($toto, $password);
-        
-         return '';
+        $Connect->conect($mail, $password);
+         return $Connect;
 	}
     
 }

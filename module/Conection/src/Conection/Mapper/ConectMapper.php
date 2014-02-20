@@ -35,7 +35,7 @@ class ConectMapper {
       */
     
     public function isCandidat($name){
-        isset($name)&&($name=="nomCandidat")?true : false;
+         return (isset($_SESSION["nomCandidat"]))?true : false;
     }
     
     /**
@@ -44,7 +44,7 @@ class ConectMapper {
       */
     
     public function isSociete($name){
-         isset($name)&&($name=="nomSociete")?true : false;
+         return (isset($_SESSION["nomSociete"]))?true : false;
     }
         /**
 	 * 
@@ -79,7 +79,9 @@ class ConectMapper {
                 'id'=>$i,
                 ) );
        $societe = $data->fetch(PDO::FETCH_ASSOC);
-        // On enregistre dans la session le login de l'utilisateur qui s'est connectÃ©
+         /**
+          *  we register in Session all information
+          */
 
       foreach ($isNul as $key => $value) {
             $_SESSION[$key] = $value;
@@ -94,23 +96,25 @@ class ConectMapper {
                 $_SESSION[$key] = $value;
             }
         }
-      //  var_dump($_SESSION);
-     
-          // Si on vient d'une page sÃ©curisÃ©e
-        // on redirige vers la page d'origine
-
+     /**
+      *  if we comme to secure page
+      *  we redirect to  origin page
+      * 
+      */
         if (isset($_SESSION["securedPage"])) {
             $page = $_SESSION["securedPage"];
             unset($_SESSION["securedPage"]);
         } else {
-
-            // Sinon on redirigera vers l'index avec un message
-            $page = "index.php";
+        /**
+         *  else Redirection & exit 
+         */
 
             $_SESSION["flashMessage"] = "Bienvenue" . $membre['nomSociete'] . ", vous Ãªtes connectÃ©";
         }
         
-        // rediriger et quitter 
+        /**
+         * Redirection & exit 
+         */
         header("Location: ../");
         exit();
     }

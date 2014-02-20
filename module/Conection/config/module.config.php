@@ -25,10 +25,6 @@ return array(
 		'template_path_stack' => array(
 			__DIR__ . '/../view',
 		),
-	//TODO Si j'ai le temp spenser à personnaliser le template
-//		'template_map' => array(
-//			'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
-//		)
 	),
 	'service_manager' => array(
 		'factories' => array(
