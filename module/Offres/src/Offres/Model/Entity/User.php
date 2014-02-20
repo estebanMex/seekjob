@@ -18,6 +18,7 @@ class User {
 	protected $id;
 	protected $conection_id;
 	protected $date_inscription;
+	protected $type;
 
 	function __construct($nom = null, $prenom = null, $tel = null, $cp = null, $ville = null, $id = null, $conection_id = null, $date_inscription = null) {
 		$this->nom = $nom;
@@ -99,6 +100,15 @@ class User {
 
 	public function setVille($ville) {
 		$this->ville = $ville;
+		return $this;
+	}
+
+	public function getType() {
+		return $this->type;
+	}
+
+	public function setType($type) {
+		$this->type = $type;
 		return $this;
 	}
 

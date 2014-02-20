@@ -30,10 +30,10 @@ $idAle = '_' . rand(1, 1000);
 				</div>-->
 
 		<?php if (isset($erreurs)): ?>
-			<?php $flag = 'oui';  ?>
-		
+			<?php $flagError = 'oui'; ?>
+
 			<?php foreach ($erreurs as $erreur): ?>
-				<div class="alert alert-danger alert-dismissable">
+				<div class="alert alert-dismissable alert-warning">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<strong>Oups ! </strong><?php echo ' ' . $erreur; ?>
 				</div>
@@ -52,13 +52,21 @@ $idAle = '_' . rand(1, 1000);
 							<div class=" col-lg-6">
 								<div class="form-group">
 									<label for="nom">Nom</label>
-									<input type="text" class="form-control" id="nom" placeholder="Votre nom" name="nom" value="nom<?php echo $idAle; ?>">
+									<input type="text" class="form-control " id="nom" placeholder="Votre nom" name="nom" value="<?php
+									if (isset($flagError)) {
+										echo $data['nom'];
+									};
+									?>">
 								</div>
 							</div>
 							<div class=" col-lg-6">
 								<div class="form-group">
 									<label for="prenom">Prénom</label>
-									<input type="text" class="form-control" id="prenom" placeholder="Votre Prénom" name="prenom" value="prenom<?php echo $idAle; ?>">
+									<input type="text" class="form-control" id="prenom" placeholder="Votre Prénom" name="prenom" value="<?php
+									if (isset($flagError)) {
+										echo $data['prenom'];
+									};
+									?>">
 								</div>
 							</div>
 						</div>
@@ -67,14 +75,26 @@ $idAle = '_' . rand(1, 1000);
 							<div class=" col-lg-6">
 								<div class="form-group">
 									<label for="email">Email</label>
-									<input type="email" class="form-control" id="email" placeholder="Votre email" name="email" value="mail<?php echo $idAle; ?>@bidon.fr">
+									<input type="email" class="form-control <?php
+									if (isset($flagError)) {
+										echo 'alert-danger';
+									};
+									?>" id="email" placeholder="Votre email" name="email" value="<?php
+										   if (isset($flagError)) {
+											   echo $data['mail'];
+										   };
+										   ?>">
 								</div>
 							</div>
 
 							<div class=" col-lg-6">
 								<div class="form-group">
 									<label for="tel">Telephone</label>
-									<input type="tel" class="form-control" id="tel" placeholder="00-00-00-00-00-00" name="tel" value="0102030405">
+									<input type="tel" class="form-control" id="tel" placeholder="00-00-00-00-00-00" name="tel" value="<?php
+									if (isset($flagError)) {
+										echo $data['tel'];
+									};
+									?>">
 								</div>
 							</div>
 						</div>
@@ -82,19 +102,27 @@ $idAle = '_' . rand(1, 1000);
 							<div class=" col-lg-6">
 								<div class="form-group">
 									<label for="password">Mot de passe </label>
-									<input type="password" class="form-control" id="password" placeholder="" name="password" value="toto">
+									<input type="password" class="form-control" id="password" placeholder="" name="password" >
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class=" col-lg-6">
 								<label for="cp">Code postale</label>
-								<input type="text" class="form-control" id="cp" placeholder="Code postale" name="cp" value="<?php echo rand(75000, 75021); ?>">
+								<input type="text" class="form-control" id="cp" placeholder="Code postale" name="cp" value="<?php
+								if (isset($flagError)) {
+									echo $data['cp'];
+								};
+								?>">
 							</div>
 
 							<div class=" col-lg-6">
 								<label for="ville">Ville</label>
-								<input type="text" class="form-control" id="ville" placeholder="Ville" name="ville" value="paris">
+								<input type="text" class="form-control" id="ville" placeholder="Ville" name="ville" value="<?php
+								if (isset($flagError)) {
+									echo $data['ville'];
+								};
+								?>">
 							</div>
 						</div>
 						&nbsp;
