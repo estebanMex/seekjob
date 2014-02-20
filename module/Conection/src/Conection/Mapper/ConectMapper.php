@@ -29,15 +29,22 @@ class ConectMapper {
         $this->gateway->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
     }
     
-    
+     /**
+      * 
+      * @param type $name
+      */
     
     public function isCandidat($name){
-        
+        isset($name)&&($name=="nomCandidat")?true : false;
     }
     
+    /**
+      * 
+      * @param type $name
+      */
     
     public function isSociete($name){
-        
+         isset($name)&&($name=="nomSociete")?true : false;
     }
         /**
 	 * 
