@@ -1,6 +1,13 @@
 {
-    "name": "esteban/seekjobs",
+    "name": "vendor/seekjob",
+    "description": "Description of project seekjob.",
+    "authors": [
+        {
+            "name": "sylvain",
+            "email": "legende_91@msn.com"
+        }
+    ],
     "require": {
-
+        "zf-commons/zfc-user": "0.1.2"
     }
 }

@@ -8,7 +8,10 @@
 return array(
     'modules' => array(
         'Application',
-        'Offres'
+        'Offres',
+        'Conection',
+        'ZfcBase',
+        'ZfcUser'
         ),
     'module_listener_options' => array(
         'module_paths' => array(
