@@ -49,7 +49,7 @@ div.container a.brand {
 	/*min-width: 25%;*/
 	/*max-width: 50%;*/
 }
-#competences a{ color:white;}
+#competences .badge a{ color:white;}
 #inputAddComptence{
 	text-align: center;
 }

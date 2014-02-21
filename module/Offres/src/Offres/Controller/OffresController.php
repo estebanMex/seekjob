@@ -2,14 +2,14 @@
 
 namespace Offres\Controller;
 
+use Zend\Http\Request;
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 use Offres\Model\Entity\Candidat;
 use Offres\Model\Entity\Offre;
 use Offres\Model\Entity\Societe;
 use Offres\Model\OffreGateway;
 use Offres\Model\UserAccountGateway;
-use Zend\Http\Request;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 
 class OffresController extends AbstractActionController {
 
