@@ -9,15 +9,23 @@ $idAle = rand(75000, 99000);
 	<div class="panel-heading clearfix"><h4>Ajouter un nouvelle offre :</h4></div>
 	<div class="panel-body">
 
-		<div class="alert alert-success alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<strong>Super !</strong> Votre candidature à été soumis correctement
-		</div>
+		<?php if (isset($erreurs)): ?>
+			<?php $flagError = 'oui'; ?>
+			<?php foreach ($erreurs as $erreur): ?>
+				<div class="alert alert-dismissable alert-warning">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>Oups ! </strong><?php echo ' ' . $erreur; ?>
+				</div>
+			<?php endforeach; ?>
+		<?php endif; ?>
 
-		<div class="alert alert-danger alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<strong>Oups !</strong> Votre Un erreur est survenu merci de soumettre à nouveau votre candidature
-		</div>
+		<?php if (isset($messages)): ?>
+			<?php foreach ($messages as $message): ?>
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				</div>
+			<?php endforeach; ?>
+		<?php endif; ?>
 
 		<div class="row show-grid">
 			<div class="col-md-8">
@@ -77,32 +85,28 @@ $idAle = rand(75000, 99000);
 					</form>
 				</div>
 			</div>
-			<div id="competences">
+			<?php //TODO OPtionnel Ajouter des competences à l'offre ?>
+			<div id="competences" class="hide">
 				<div class="col-md-4" id="inputAddComptence">
 					<a href="#" class="btn btn-bloc	btn-info clearfix">Ajouter des competences</a>
 				</div>
-				<div class="col-md-4" id="inputAddComptence">
-					<form class="navbar-form" role="form">
-						<div class="form-group">
-							<input type="tag"  placeholder="exemple PHP" class="form-control">
-						</div>
-						<button type="submit" class="btn btn-success">Ajouter</button>
-					</form>
-				</div>
-				<div>
-					<span class="badge pad"><a href="#">PHP <span class="glyphicon glyphicon-remove"></span></a></span>
-					<span class="badge pad"><a href="#">java <span class="glyphicon glyphicon-remove"></span></a></span>
-					<span class="badge pad"><a href="#">css <span class="glyphicon glyphicon-remove"></span></a></span>
-					<span class="badge pad"><a href="#">html <span class="glyphicon glyphicon-remove"></span></a></span>
-					<span class="badge pad"><a href="#">Java <span class="glyphicon glyphicon-remove"></span> </a></span>	
+				<div id="addCompetences" class="hide">
+					<div class="col-md-4">
+						<form class="navbar-form" role="form">
+							<div class="form-group">
+								<input type="tag"  placeholder="exemple PHP" class="form-control">
+							</div>
+							<button type="submit" class="btn btn-success">Ajouter</button>
+						</form>
+					</div>
+
+					<div id="listCompetences">
+						<span class="badge pad"><a href="#">PHP <span class="glyphicon glyphicon-remove"></span></a></span>
+					</div>
+
 				</div>
 			</div>
 		</div>
     </div>
 </div>
-<div>
-	<ul class="pager">
-		<li class="previous disabled"><a href="#">&larr; Retourner à la liste d'offres</a></li>
-		<li class="next"><a href="#">Voir l'offre suivante &rarr;</a></li>
-	</ul>
-</div>
+
