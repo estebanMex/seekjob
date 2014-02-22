@@ -25,12 +25,17 @@ class ConectController extends AbstractActionController {
     protected $request;
     
     public function indexAction() {
-        $Connect = new \Conection\Mapper\ConectMapper();
         
-        $mail= 'toto@toto.com';
-        $password = 'toto';
-        $Connect->conect($mail, $password);
-         return $Connect;
+       $Connect = new \Conection\Mapper\ConectMapper();
+       $mail=$_POST['mail'];
+       $password=$_POST['password'];
+       $Connect->conect($mail, $password);
+      $_SESSION['connect']=($Connect->isConected());
+       
+       
+       
+       
+    return  header('location:../') ;
 	}
     
 }

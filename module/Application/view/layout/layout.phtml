@@ -1,5 +1,7 @@
-<?php echo $this->doctype();
-session_start();    
+<?php 
+echo $this->doctype();
+
+
 ?>
 
 <html lang="en">
@@ -63,6 +65,7 @@ session_start();
 								<li class="divider"></li>
 								<li class="dropdown-header">Mes candidatures</li>
 								<li><a href="#">Voir l'états des mes candidatures</a></li>
+                                                               
 							</ul>
 						</li>
 						<li><a href="http://seekjobs.dev/zfcuser/register" >Créer mon compte</a></li>
@@ -71,12 +74,12 @@ session_start();
                                  
                             <li><a href="">Se déconnecter</a></li>
        
-                                <form class="navbar-form navbar-right" action="" role="form">
+                            <form class="navbar-form navbar-right" action="http://localhost/seekjob/public/conect/" method="POST" role="form">
 					<div class="form-group">
-						<input type="text" placeholder="identity" name="identity" class="form-control">
+						<input type="text" placeholder="mail" name="mail" class="form-control">
 					</div>
 					<div class="form-group">
-						<input type="password" placeholder="Password" name ="credential" class="form-control">
+						<input type="password" placeholder="Password" name ="password" class="form-control">
 					</div>
 					<button type="submit" class="btn btn-success">Sign in</button>
 				</form>

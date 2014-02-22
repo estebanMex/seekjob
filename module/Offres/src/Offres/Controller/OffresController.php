@@ -2,13 +2,12 @@
 
 namespace Offres\Controller;
 
-use Offres\Model\CandidatureGateway;
-
-use Offres\Model\Entity\Candidature;
-use Offres\Model\OffreGateway;
+use Offres\Model\Entity\Offre;
+use Offres\Model\OffreTable;
 use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+
 
 class OffresController extends AbstractActionController {
 
@@ -23,8 +22,25 @@ class OffresController extends AbstractActionController {
 	 * 
 	 * @return ViewModel
 	 */
+        
+            private function getOffre() {
+        // Service Manager
+        // Composant qui stocke les objets associées à des clés
+        // et qui sait les créer (avec new, avec une fabrique, avec singleton,
+        // avec une fabrique abstraite, avec un builder...)
+        $adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+        $gateway = new \Zend\Db\TableGateway\TableGateway("offre", $adapter);
+  
+        return new \Offres\Model\OffreTable($gateway);
+    }
+        
 	public function indexAction() {
-		return new ViewModel();
+           
+            $offre = $this->getOffre();
+            
+	return new ViewModel(array(
+                    "listeOffre"=>$offre->fetchAll(),
+               ));
 	}
 
 	//@TODO recuperer les offres selons les criteres selectionnees
@@ -75,6 +91,7 @@ class OffresController extends AbstractActionController {
 	//TODO suppresion d'une offre
 	//TODO penser à securiser l'appel de cette page afin 'eviter la suppression en masse
 	public function supprimerAction() {
+          
 		return new ViewModel();
 	}
 

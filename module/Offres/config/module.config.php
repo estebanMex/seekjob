@@ -64,6 +64,19 @@ return array(
 					),
 				),
 			),
+			'offre_supprimer' => array(
+				'type' => 'Zend\Mvc\Router\Http\Segment',
+				'options' => array(
+					'route' => '/offres/supprimer/:id',
+					'defaults' => array(
+						'controller' => 'Offres\Controller\Offres',
+						'action' => 'supprimer',
+					),
+					'constraints' => array(
+						'id' => '[1-9][0-9]*',
+					),
+				),
+			),
 		),
 	),
 	'view_manager' => array(

@@ -30,22 +30,33 @@ class ConectMapper {
     }
     
      /**
-      * 
-      * @param type $name
+      *  function of Candidat User
+      * @return boolean 
       */
     
-    public function isCandidat($name){
-         return (isset($_SESSION["nomCandidat"]))?true : false;
+    public function isCandidat(){
+         return (isset($_SESSION["role"])==2)?true : false;
     }
     
     /**
-      * 
-      * @param type $name
+      * function of Société User
+      *  @return boolean 
       */
     
-    public function isSociete($name){
-         return (isset($_SESSION["nomSociete"]))?true : false;
+    public function isSociete(){
+         return (isset($_SESSION["role"])==1)?true : false;
     }
+    
+    /**
+      *  function of user conected
+      *  @return boolean 
+      */
+    
+    public function isConected(){
+         return (isset($_SESSION))?true : false;
+    }
+    
+    
         /**
 	 * 
 	 * @var login
@@ -89,13 +100,16 @@ class ConectMapper {
         if ($societe != null) {
             foreach ($societe as $key => $value) {
                 $_SESSION[$key] = $value;
+                $_SESSION["role"]=1;
             }
             
         } else {
             foreach ($candidat as $key => $value) {
                 $_SESSION[$key] = $value;
+                $_SESSION["role"]=2;
             }
         }
+
      /**
       *  if we comme to secure page
       *  we redirect to  origin page
@@ -104,21 +118,8 @@ class ConectMapper {
         if (isset($_SESSION["securedPage"])) {
             $page = $_SESSION["securedPage"];
             unset($_SESSION["securedPage"]);
-        } else {
-        /**
-         *  else Redirection & exit 
-         */
-
-            $_SESSION["flashMessage"] = "Bienvenue" . $membre['nomSociete'] . ", vous Ãªtes connectÃ©";
-        }
-        
-        /**
-         * Redirection & exit 
-         */
-        header("Location: ../");
-        exit();
-    }
+        } 
         
     }
-    
+    }
 }

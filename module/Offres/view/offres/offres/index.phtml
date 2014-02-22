@@ -1,3 +1,13 @@
-Module: Offres
-Controller: Offres
-Action: index
+<h3>Voici toute nos offre</h3>
+
+
+<ul>
+    <?php foreach($listeOffre as $key => $offre) : ?>
+    <p>Titre : <?php echo $offre['titre'] ?></p>
+    <p>descriptif :  <?php echo $offre['description'] ?></p>
+    <p> CP : <?php echo $offre['cp'] ?></p>
+    <p>Dâte de publication : <?php echo $offre['date_creation'] ?></p>
+    <p>type : <?php echo $offre['type'] ?></p>
+   
+    <?php endforeach; ?>
+</ul>
