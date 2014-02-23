@@ -1,15 +1,14 @@
-<h3>Voici toute nos offre</h3>
+<h3>Voici toutes nos offres</h3>
 
 
 <ul>
-    <?php foreach($listeOffre as $key => $offre) : ?>
-    <p>Titre : <?php echo $offre['titre'] ?></p>
-    <p>descriptif :  <?php echo $offre['description'] ?></p>
-    <p> CP : <?php echo $offre['cp'] ?></p>
-    <p>Dâte de publication : <?php echo $offre['date_creation'] ?></p>
-    <p>type : <?php echo $offre['type'] ?></p>
-    <a href="<?php  $this->url() ?>/offres/detail/<?php echo $offre['id']  ?>"> Postuler</a>
-    <a href="<?php  $this->url() ?>/offres/supprimer/<?php echo $offre['id']  ?>"> Supprimer</a>
- 
+    <?php foreach($listeOffre as $offre) : ?>
+    <p>Titre : <?php echo $this->escapeHtml($offre->gettitre()) ?></p>
+    <p>descriptif :  <?php echo $this->escapeHtml($offre->getdescription()) ?></p>
+    <p> CP : <?php echo $this->escapeHtml($offre->getcp()) ?></p>
+    <p>Dâte de publication : <?php echo $this->escapeHtml($offre->getdate_creation()) ?></p>
+    <p>type : <?php echo $this->escapeHtml($offre->gettype()); ?></p>
+    <a href="<?php echo  $this->escapeHtml($this->url('offre_details', array('action'=>'detail','id'=>$offre->getid()))) ?>"> Detail</a>
+    <a href="<?php echo  $this->escapeHtml($this->url('offre_supprimer', array('action'=>'supprimer','id'=>$offre->getid()))) ?>"> Supprimer</a>
     <?php endforeach; ?>
 </ul>

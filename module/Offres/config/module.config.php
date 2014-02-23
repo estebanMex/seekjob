@@ -44,7 +44,7 @@ return array(
 					'route' => '/offres/detail/:id',
 					'defaults' => array(
 						'controller' => 'Offres\Controller\Offres',
-						'action' => 'detail',
+                                                    'action' => 'detail',
 					),
 					'constraints' => array(
 						'id' => '[1-9][0-9]*',

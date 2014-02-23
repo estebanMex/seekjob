@@ -7,12 +7,15 @@ namespace Offres\Entity;
  * and open the template in the editor.
  */
 
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
 /**
  * Description of offre
  *
  * @author sylvain
  */
-class Offre {
+class Offre implements InputFilterAwareInterface{
    
     public $id;
     public $titre;
@@ -22,6 +25,7 @@ class Offre {
     public $date_creation;
     public $type;
     public $societe_id;
+     protected $inputFilter;
     
     
      public function exchangeArray($data)
@@ -38,7 +42,7 @@ class Offre {
     }
     
     public function getId() {
-        return $this->id;
+        return (int)$this->id;
     }
 
     public function getTitre() {
@@ -50,7 +54,7 @@ class Offre {
     }
 
     public function getCp() {
-        return $this->cp;
+        return (int)$this->cp;
     }
 
     public function getVille() {
@@ -66,11 +70,11 @@ class Offre {
     }
 
     public function getSociete_id() {
-        return $this->societe_id;
+        return (int)$this->societe_id;
     }
 
     public function setId($id) {
-        $this->id = $id;
+        $this->id = (int) $id;
         return $this;
     }
 
@@ -85,7 +89,7 @@ class Offre {
     }
 
     public function setCp($cp) {
-        $this->cp = $cp;
+        $this->cp = (int) $cp;
         return $this;
     }
 
@@ -105,9 +109,116 @@ class Offre {
     }
 
     public function setSociete_id($societe_id) {
-        $this->societe_id = $societe_id;
+        $this->societe_id = (int) $societe_id;
         return $this;
     }
 
- 
+   
+    public function setInputFilter(InputFilterInterface $inputFilter)
+     {
+         throw new \Exception("Not used");
+     }
+
+
+     public function getInputFilter()
+     {
+         if (!$this->inputFilter) {
+             $inputFilter = new InputFilter();
+
+             $inputFilter->add(array(
+                 'name'     => 'id',
+                 'required' => true,
+                 'filters'  => array(
+                     array('name' => 'Int'),
+                 ),
+             ));
+
+             $inputFilter->add(array(
+                 'name'     => 'titre',
+                 'required' => true,
+                 'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                 ),
+                 'validators' => array(
+                     array(
+                         'name'    => 'StringLength',
+                         'options' => array(
+                             'encoding' => 'UTF-8',
+                             'min'      => 1,
+                             'max'      => 255,
+                         ),
+                     ),
+                 ),
+             ));
+             
+             $inputFilter->add(array(
+                  'name'     => 'cp',
+                 'required' => true,
+                 'filters'  => array(
+                     array('name' => 'Int'),
+                 ),
+             ));
+             
+             $inputFilter->add(array(
+                 'name'     => 'ville',
+                 'required' => true,
+                 'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                 ),
+                 'validators' => array(
+                     array(
+                         'name'    => 'StringLength',
+                         'options' => array(
+                             'encoding' => 'UTF-8',
+                             'min'      => 1,
+                             'max'      => 255,
+                         ),
+                     ),
+                 ),
+             ));
+
+             $inputFilter->add(array(
+                 'name'     => 'description',
+                 'required' => true,
+                 'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                 ),
+                 'validators' => array(
+                     array(
+                         'name'    => 'StringLength',
+                         'options' => array(
+                             'encoding' => 'UTF-8',
+                         ),
+                     ),
+                 ),
+             ));
+             
+             $inputFilter->add(array(
+                 'name'     => 'type',
+                 'required' => true,
+                 'filters'  => array(
+                     array('name' => 'StripTags'),
+                     array('name' => 'StringTrim'),
+                 ),
+                 'validators' => array(
+                     array(
+                         'name'    => 'StringLength',
+                         'options' => array(
+                             'encoding' => 'UTF-8',
+                             'min'      => 1,
+                             'max'      => 255,
+                         ),
+                     ),
+                 ),
+             ));
+
+             $this->inputFilter = $inputFilter;
+         }
+
+         return $this->inputFilter;
+     }
+
 }

@@ -22,26 +22,29 @@ class OffreTable extends Table
         if (!$row) {
             throw new \Exception("Could not find row $id");
         }
-  
         return $row;
+    }
+
+    public function toto($a){
+        var_dump($a);
     }
 
     public function save($offre)
     {
-      
         $data = array(
-            'titre' =>  $offre['titre'],
-            'description'  => $offre['description'],
-            'cp'  => $offre['cp'],
-            'ville'  => $offre['ville'],
-            'type'  => $offre['type'],
+            'titre' =>  $offre->gettitre(),
+            'description'  => $offre->getdescription(),
+            'cp'  => $offre->getcp(),
+            'ville'  => $offre->getville(),
+            'type'  => $offre->gettype(),
+            'societe_id'  => 1,
         );
 
-        $id = (int)$offre['id'];
-        if ($id == 0) {
+        $id = (int)1;
+        if ($id != 0) {
             $this->tableGateway->insert($data);
         } else {
-            if ( $offre['id']) {
+            if ( $offre->gettitre()) {
                 $this->tableGateway->update($data, array('id' => 1));
             } else {
                 throw new \Exception('Form id does not exist');

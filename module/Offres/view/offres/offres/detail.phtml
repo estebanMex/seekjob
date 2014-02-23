@@ -1,12 +1,16 @@
-<h3> Offre Detaillée</h3>
+<?php $title = 'Offre Detaillée';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+
 
 
 <ul>
-  
-    <p>Titre : <?php echo $listeOffre['titre'] ?></p>
-    <p>descriptif :  <?php echo $listeOffre['description'] ?></p>
-    <p> CP : <?php echo $listeOffre['cp'] ?></p>
-    <p>Dâte de publication : <?php echo $listeOffre['date_creation'] ?></p>
-    <p>type : <?php echo $listeOffre['type'] ?></p>
-
+  <?php $offre ?>
+    <p>Titre : <?php echo $this->escapeHtml($offre->getid()) ?></p>
+    <p>descriptif :  <?php echo $this->escapeHtml($offre->getdescription()) ?></p>
+    <p> CP : <?php echo $this->escapeHtml($offre->getcp()) ?></p>
+    <p>Dâte de publication : <?php echo $this->escapeHtml($offre->getdate_creation()) ?></p>
+    <p>type : <?php echo $this->escapeHtml($offre->gettype()) ?></p>
+    <a href="<?php echo  $this->escapeHtml($this->url('offre_details', array('action'=>'detail','id'=>$offre->getid()))) ?>"> Postuler</a>
 </ul>

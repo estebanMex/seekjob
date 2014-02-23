@@ -12,7 +12,7 @@ class Module
     {
         return array(
             'factories' => array(
-                'offre' =>  function($sm) {
+                'offres' =>  function($sm) {
                     $tableGateway = $sm->get('OffreTableGateway');
                     $table = new OffreTable($tableGateway);
                     return $table;

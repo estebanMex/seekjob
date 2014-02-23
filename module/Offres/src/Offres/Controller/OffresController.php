@@ -7,112 +7,123 @@ use Offres\Model\OffreTable;
 use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-
+use Album\Form\OffreForm;
 
 class OffresController extends AbstractActionController {
 
-	/**
-	 * 
-	 * @var Request
-	 */
-	protected $request;
-        
-        //TODO recuperer toutes les offres
-	/**
-	 * 
-	 * @return ViewModel
-	 */
-        
-            private function getOffre() {
-        // Service Manager
-        // Composant qui stocke les objets associées à des clés
-        // et qui sait les créer (avec new, avec une fabrique, avec singleton,
-        // avec une fabrique abstraite, avec un builder...)
-        $adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-        $gateway = new \Zend\Db\TableGateway\TableGateway("offre", $adapter);
-  
-        return new \Offres\Model\OffreTable($gateway);
+    /**
+     * 
+     * @var Request
+     */
+    protected $request;
+    protected $offres;
+
+    //TODO recuperer toutes les offres
+    /**
+     * 
+     * @return ViewModel
+     */
+    private function getOffre() {
+        $sm = $this->getServiceLocator();
+        $this->offres = $sm->get('offres');
+        return $this->offres;
     }
+
+    public function indexAction() {
+
+        $offre = $this->getOffre();
         
-	public function indexAction() {
-           
-            $offre = $this->getOffre();
+        return new ViewModel(array(
+            "listeOffre" => $offre->fetchAll(),
+        ));
+    }
+
+    //@TODO recuperer les offres selons les criteres selectionnees
+    /**
+     * 
+     * @return ViewModel
+     */
+    public function rechercheAction() {
+
+        return new ViewModel();
+    }
+
+    //TODO recuperer le detail de l'offre choisi
+    /**
+     * 
+     * @return ViewModel
+     */
+    public function detailAction() {
+        $id = $this->params("id");
+        $offre = $this->getOffre();   
+         return new ViewModel(array("offre" => $offre->find($id)));
+    }
+
+    //TODO Creer formulaire d'inscription
+    /**
+     * 
+     * @return ViewModel
+     */
+    public function inscriptionAction() {
+        return new ViewModel();
+    }
+
+    /**
+     * 
+     * @return ViewModel
+     * @var $data
+     * @var $offre
+     * @var $this->request
+     * 
+     */
+    public function ajouterAction() {
+        
+         $form = new \Offres\Form\OffreForm;
+         $form->get('submit')->setValue('ajouter');
+         
+         $request = $this->getRequest();
+         if ($request->isPost()) {
+             $offre = new \Offres\Entity\Offre();
+             $form->setInputFilter($offre->getInputFilter());
+             $form->setData($request->getPost());
+
+             if ($form->isValid()) {
+                 $offre->exchangeArray($form->getData());
             
-	return new ViewModel(array(
-                    "listeOffre"=>$offre->fetchAll(),
-               ));
-	}
+                  $this->getOffre()->save($offre);
+                 // Redirect to list of albums
+                 return $this->redirect()->toRoute('offres_ajouter');
+             }
+         }
+         return array('form' => $form);
 
-	//@TODO recuperer les offres selons les criteres selectionnees
-	/**
-	 * 
-	 * @return ViewModel
-	 */
-	public function rechercheAction() {
-            
-		return new ViewModel();
-	}
+    }
 
-	//TODO recuperer le detail de l'offre choisi
-	/**
-	 * 
-	 * @return ViewModel
-	 */
-	public function detailAction() {
-            $id = $this->params("id");
-           $offre = $this->getOffre();
-		return new ViewModel(array("listeOffre" => $offre->find($id)));
-	}
+  
+    /**
+     * 
+     * @return ViewModel
+     */
+    public function modifierAction() {
 
-	//TODO Creer formulaire d'inscription
-	/**
-	 * 
-	 * @return ViewModel
-	 */
-	public function inscriptionAction() {
-		return new ViewModel();
-	}
+        return new ViewModel();
+    }
+    
+    /**
+     * 
+     * @return \Zend\View\Model\ViewModel
+     * @var $id
+     * @var $offre
+     * 
+     */
+    
+    public function supprimerAction() {
+        $id = $this->params("id");
+        $offre = $this->getOffre();
+        $offre->delete($id);
 
-	//TODO afficher le formulaire d'ajout d'une offre
-	/**
-	 * 
-	 * @return ViewModel
-	 */
-	public function ajouterAction() {
-            
-            if(!$this->request->getPost()){
-                die();
-                    $data = array_merge_recursive(
-                    $this->request->getPost()->toArray()
-                    );
-//                    var_dump($data);
-//                    die();
-                    
-                     $offre = $this->getOffre();
-                     $offre->save($data);
-            }    
-          
-		return new ViewModel();
-	}
-
-	//TODO afficher le formulaire de modification d'une offre
-	/**
-	 * 
-	 * @return ViewModel
-	 */
-	public function modifierAction() {
-            
-		return new ViewModel();
-	}
-
-	//TODO suppresion d'une offre
-	//TODO penser à securiser l'appel de cette page afin 'eviter la suppression en masse
-	public function supprimerAction() {
-           $id = $this->params("id");
-           $offre = $this->getOffre();
-           $offre->delete($id);
-           
-		return new ViewModel();
-	}
+        return new ViewModel();
+    }
+    
 
 }
