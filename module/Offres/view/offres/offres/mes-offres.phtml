@@ -1,0 +1,14 @@
+<h3>Mes Offres</h3>
+
+
+<ul>
+    <?php foreach($listeOffre as $offre) : ?>
+    <p>Titre : <?php echo $this->escapeHtml($offre->gettitre()) ?></p>
+    <p>descriptif :  <?php echo $this->escapeHtml($offre->getdescription()) ?></p>
+    <p> CP : <?php echo $this->escapeHtml($offre->getcp()) ?></p>
+    <p>Dâte de publication : <?php echo $this->escapeHtml($offre->getdate_creation()) ?></p>
+    <p>type : <?php echo $this->escapeHtml($offre->gettype()); ?></p>
+    <a href="<?php echo  $this->escapeHtml($this->url('offre_details', array('action'=>'detail','id'=>$offre->getid()))) ?>"> Detail</a>
+    <a href="<?php echo  $this->escapeHtml($this->url('offre_supprimer', array('action'=>'supprimer','id'=>$offre->getid()))) ?>"> Supprimer</a>
+    <?php endforeach; ?>
+</ul>

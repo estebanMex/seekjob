@@ -10,6 +10,7 @@ return array(
         'Application',
         'Offres',
         'Conection',
+        'Front',
         
         ),
     'module_listener_options' => array(

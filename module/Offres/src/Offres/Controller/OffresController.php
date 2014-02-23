@@ -18,7 +18,7 @@ class OffresController extends AbstractActionController {
     protected $request;
     protected $offres;
 
-    //TODO recuperer toutes les offres
+    //TODO take all offres
     /**
      * 
      * @return ViewModel
@@ -38,6 +38,7 @@ class OffresController extends AbstractActionController {
         ));
     }
 
+    
     //@TODO recuperer les offres selons les criteres selectionnees
     /**
      * 
@@ -46,6 +47,14 @@ class OffresController extends AbstractActionController {
     public function rechercheAction() {
 
         return new ViewModel();
+    }
+    
+    
+    public function mesOffresAction() {
+       $id = 1;//$this->params("id");
+        $offre = $this->getOffre();
+        
+        return new ViewModel(array("listeOffre" => $offre->findBySociete($id)));
     }
 
     //TODO recuperer le detail de l'offre choisi
@@ -81,6 +90,7 @@ class OffresController extends AbstractActionController {
          $form = new \Offres\Form\OffreForm;
          $form->get('submit')->setValue('ajouter');
          
+         
          $request = $this->getRequest();
          if ($request->isPost()) {
              $offre = new \Offres\Entity\Offre();
@@ -88,10 +98,11 @@ class OffresController extends AbstractActionController {
              $form->setData($request->getPost());
 
              if ($form->isValid()) {
+                 
                  $offre->exchangeArray($form->getData());
-            
+                 
                   $this->getOffre()->save($offre);
-                 // Redirect to list of albums
+                // redirect to Offre_ajouter
                  return $this->redirect()->toRoute('offres_ajouter');
              }
          }
@@ -105,8 +116,48 @@ class OffresController extends AbstractActionController {
      * @return ViewModel
      */
     public function modifierAction() {
+        
+        
+       $id = (int) $this->params()->fromRoute('id', 0);
+         if (!$id) {
+             return $this->redirect()->toRoute('home', array(
+                 'action' => 'index'
+             ));
+         }
 
-        return new ViewModel();
+         // Get the Album with the specified id.  An exception is thrown
+         // if it cannot be found, in which case go to the index page.
+         try {
+              $offre = $this->getOffre();
+             $offres = $offre->find($id);
+         }
+         catch (\Exception $ex) {
+             return $this->redirect()->toRoute('home', array(
+                 'action' => 'index'
+             ));
+         }
+         
+         $form  = new \Offres\Form\OffreForm();
+         $form->bind($offres);
+         $form->get('submit')->setAttribute('value', 'modifier');
+
+         $request = $this->getRequest();
+         if ($request->isPost()) {
+             $form->setInputFilter($offres->getInputFilter());
+             $form->setData($request->getPost());
+
+             if ($form->isValid()) {
+                $offre->save($offres);
+
+                 // Redirect to list of albums
+                 return $this->redirect()->toRoute('home');
+             }
+         }
+
+         return array(
+             'id' => $id,
+             'form' => $form,
+         );
     }
     
     /**

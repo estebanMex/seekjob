@@ -25,11 +25,12 @@ class Offre implements InputFilterAwareInterface{
     public $date_creation;
     public $type;
     public $societe_id;
-     protected $inputFilter;
+    protected $inputFilter;
     
     
      public function exchangeArray($data)
     {
+         
         $this->id     = (isset($data['id'])) ? $data['id'] : null;
         $this->titre = (isset($data['titre'])) ? $data['titre'] : null;
         $this->description  = (isset($data['description'])) ? $data['description'] : null;
@@ -38,9 +39,12 @@ class Offre implements InputFilterAwareInterface{
         $this->date_creation  = (isset($data['date_creation'])) ? $data['date_creation'] : null;
         $this->type = (isset($data['type'])) ? $data['type'] : null;
         $this->societe_id  = (isset($data['societe_id'])) ? $data['societe_id'] : null;
-       
     }
-    
+     public function getArrayCopy()
+     {
+         return get_object_vars($this);
+     }
+
     public function getId() {
         return (int)$this->id;
     }

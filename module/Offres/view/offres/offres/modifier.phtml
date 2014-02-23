@@ -1,1 +1,19 @@
-<?php for ($i=0; $i<100; $i++){ echo 'toto    <br>';  } ?>
+ <?php
+ $title = 'Modifier l\'Offre';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <?php
+
+ $form->setAttribute('action', $this->url('offre_modifier', array('action' => 'modifier', 'id'=> $this->id)));
+ $form->prepare();
+
+ echo $this->form()->openTag($form);?>
+ <input type = "hidden" name = "id" value = "<?php echo $id ?>" /><?php 
+echo $this->formRow($form->get('titre'));
+ echo $this->formRow($form->get('description'));
+ echo $this->formRow($form->get('cp'));
+ echo $this->formRow($form->get('ville'));
+ echo $this->formRow($form->get('type'));
+ echo $this->formSubmit($form->get('submit'));
+ echo $this->form()->closeTag();

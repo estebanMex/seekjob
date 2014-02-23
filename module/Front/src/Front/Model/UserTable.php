@@ -1,11 +1,10 @@
 <?php
-namespace Offres\Model;
+namespace Front\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 use My\Db\Table;
 
-
-class OffreTable extends Table
+class UserTable extends Table
 {
     protected $tableGateway;
 
@@ -13,7 +12,7 @@ class OffreTable extends Table
     {
         $this->tableGateway = $tableGateway;
     }
-    
+
     public function find($id)
     {
         $id  = (int) $id;
@@ -25,25 +24,19 @@ class OffreTable extends Table
         return $row;
     }
 
-    public function save($offre)
+    public function save(User $user)
     {
-       
         $data = array(
-            'titre' =>  $offre->gettitre(),
-            'description'  => $offre->getdescription(),
-            'cp'  => $offre->getcp(),
-            'ville'  => $offre->getville(),
-            'type'  => $offre->gettype(),
-            'societe_id'  => 1,
+            'role' => $user->role,
+            'email'  => $user->email,
+            'password'  => $user->password,
         );
-        
-        $id = $offre->getid();
-       
+
+        $id = (int)$user->id;
         if ($id == 0) {
-          
             $this->tableGateway->insert($data);
         } else {
-            if ($offre->getid()) {
+            if ($this->getAlbum($id)) {
                 $this->tableGateway->update($data, array('id' => $id));
             } else {
                 throw new \Exception('Form id does not exist');

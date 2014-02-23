@@ -28,6 +28,18 @@ return array(
 					),
 				),
 			),
+                        
+                        'offres_mesOffres' => array(
+				'type' => 'Zend\Mvc\Router\Http\Literal',
+				'options' => array(
+					'route' => '/offres/mesOffres',
+					'defaults' => array(
+						'controller' => 'Offres\Controller\Offres',
+						'action' => 'mesOffres',
+					),
+				),
+			),
+                    
 			'offres_ajouter' => array(
 				'type' => 'Zend\Mvc\Router\Http\Literal',
 				'options' => array(
@@ -64,7 +76,7 @@ return array(
 					),
 				),
 			),
-			'offre_supprimer' => array(
+    			'offre_supprimer' => array(
 				'type' => 'Zend\Mvc\Router\Http\Segment',
 				'options' => array(
 					'route' => '/offres/supprimer/:id',

@@ -1,11 +1,10 @@
 <?php
-namespace Offres\Model;
+namespace Front\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 use My\Db\Table;
 
-
-class OffreTable extends Table
+class UserInfosTable extends Table
 {
     protected $tableGateway;
 
@@ -13,11 +12,13 @@ class OffreTable extends Table
     {
         $this->tableGateway = $tableGateway;
     }
-    
+
+   
+
     public function find($id)
     {
         $id  = (int) $id;
-        $rowset = $this->tableGateway->select(array('id' => $id));
+        $rowset = $this->tableGateway->select(array('user_id' => $id));
         $row = $rowset->current();
         if (!$row) {
             throw new \Exception("Could not find row $id");
@@ -25,26 +26,19 @@ class OffreTable extends Table
         return $row;
     }
 
-    public function save($offre)
+    public function save(UserInfos $userInfos)
     {
-       
         $data = array(
-            'titre' =>  $offre->gettitre(),
-            'description'  => $offre->getdescription(),
-            'cp'  => $offre->getcp(),
-            'ville'  => $offre->getville(),
-            'type'  => $offre->gettype(),
-            'societe_id'  => 1,
+            'name'  => $userInfos->name,
+            'value'  => $userInfos->value,
         );
-        
-        $id = $offre->getid();
-       
+
+        $id = (int)$userInfos->user_id;
         if ($id == 0) {
-          
             $this->tableGateway->insert($data);
         } else {
-            if ($offre->getid()) {
-                $this->tableGateway->update($data, array('id' => $id));
+            if ($this->getfind($id)) {
+                $this->tableGateway->update($data, array('user_id' => $id));
             } else {
                 throw new \Exception('Form id does not exist');
             }
@@ -53,6 +47,6 @@ class OffreTable extends Table
 
     public function delete($id)
     {
-        $this->tableGateway->delete(array('id' => $id));
+        $this->tableGateway->delete(array('user_id' => $id));
     }
 }
