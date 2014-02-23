@@ -16,8 +16,8 @@ class OffresController extends AbstractActionController {
 	 * @var Request
 	 */
 	protected $request;
-
-	//TODO recuperer toutes les offres
+        
+        //TODO recuperer toutes les offres
 	/**
 	 * 
 	 * @return ViewModel
@@ -49,6 +49,7 @@ class OffresController extends AbstractActionController {
 	 * @return ViewModel
 	 */
 	public function rechercheAction() {
+            
 		return new ViewModel();
 	}
 
@@ -58,7 +59,9 @@ class OffresController extends AbstractActionController {
 	 * @return ViewModel
 	 */
 	public function detailAction() {
-		return new ViewModel();
+            $id = $this->params("id");
+           $offre = $this->getOffre();
+		return new ViewModel(array("listeOffre" => $offre->find($id)));
 	}
 
 	//TODO Creer formulaire d'inscription
@@ -76,6 +79,19 @@ class OffresController extends AbstractActionController {
 	 * @return ViewModel
 	 */
 	public function ajouterAction() {
+            
+            if(!$this->request->getPost()){
+                die();
+                    $data = array_merge_recursive(
+                    $this->request->getPost()->toArray()
+                    );
+//                    var_dump($data);
+//                    die();
+                    
+                     $offre = $this->getOffre();
+                     $offre->save($data);
+            }    
+          
 		return new ViewModel();
 	}
 
@@ -85,13 +101,17 @@ class OffresController extends AbstractActionController {
 	 * @return ViewModel
 	 */
 	public function modifierAction() {
+            
 		return new ViewModel();
 	}
 
 	//TODO suppresion d'une offre
 	//TODO penser à securiser l'appel de cette page afin 'eviter la suppression en masse
 	public function supprimerAction() {
-          
+           $id = $this->params("id");
+           $offre = $this->getOffre();
+           $offre->delete($id);
+           
 		return new ViewModel();
 	}
 

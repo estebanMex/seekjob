@@ -8,6 +8,8 @@
     <p> CP : <?php echo $offre['cp'] ?></p>
     <p>Dâte de publication : <?php echo $offre['date_creation'] ?></p>
     <p>type : <?php echo $offre['type'] ?></p>
-   
+    <a href="<?php  $this->url() ?>/offres/detail/<?php echo $offre['id']  ?>"> Postuler</a>
+    <a href="<?php  $this->url() ?>/offres/supprimer/<?php echo $offre['id']  ?>"> Supprimer</a>
+ 
     <?php endforeach; ?>
 </ul>

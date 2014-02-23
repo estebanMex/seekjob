@@ -14,12 +14,6 @@ class OffreTable extends Table
         $this->tableGateway = $tableGateway;
     }
     
-      public function fetchAll()
-    {
-        $resultSet = $this->tableGateway->select();
-        return $resultSet;
-    }
-
     public function find($id)
     {
         $id  = (int) $id;
@@ -28,27 +22,27 @@ class OffreTable extends Table
         if (!$row) {
             throw new \Exception("Could not find row $id");
         }
+  
         return $row;
     }
 
-    public function save(Offre $offre)
+    public function save($offre)
     {
+      
         $data = array(
-            'role' =>  $offre->titre,
-            'description'  => $offre->description,
-            'cp'  => $offre->cp,
-            'ville'  => $offre->ville,
-            'date_creation'  => $offre->date_creation,
-            'type'  => $offre->type,
-            'societe_id'  => $offre->societe_id,
+            'titre' =>  $offre['titre'],
+            'description'  => $offre['description'],
+            'cp'  => $offre['cp'],
+            'ville'  => $offre['ville'],
+            'type'  => $offre['type'],
         );
 
-        $id = (int)$user->id;
+        $id = (int)$offre['id'];
         if ($id == 0) {
             $this->tableGateway->insert($data);
         } else {
-            if ($this->getAlbum($id)) {
-                $this->tableGateway->update($data, array('id' => $id));
+            if ( $offre['id']) {
+                $this->tableGateway->update($data, array('id' => 1));
             } else {
                 throw new \Exception('Form id does not exist');
             }
